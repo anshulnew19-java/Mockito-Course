@@ -23,5 +23,16 @@ public class TodoBusinessImplMockTest {
 		System.out.println("Filter TO DO : " + filterTodos);
 		assertEquals(3, filterTodos.size());
 	}
+	
+	@Test
+	public void testRetrieveTodosRelatedToSpring_usingAMock_Empty() {
+		TodoService mockTodoService = mock(TodoService.class);
+		List<String> asList = Arrays.asList();
+		when(mockTodoService.retrieveTodos("Dummy")).thenReturn(asList);
+		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(mockTodoService); 
+		List<String> filterTodos = todoBusinessImpl.retrieveTodosRelatedToSpring("Dummy");
+		System.out.println("Filter TO DO : " + filterTodos);
+		assertEquals(0, filterTodos.size());
+	}
 
 }
