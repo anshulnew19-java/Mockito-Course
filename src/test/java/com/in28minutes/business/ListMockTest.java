@@ -1,8 +1,11 @@
 package com.in28minutes.business;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.anyInt;
 import java.util.ArrayList;
 
@@ -51,7 +54,6 @@ public class ListMockTest {
 		when(arrayListGetMock.get(anyInt())).thenReturn("Ankit");
 		assertEquals("Ankit", arrayListGetMock.get(0));
 		assertEquals("Ankit", arrayListGetMock.get(1));
-		assertEquals("Ankit", arrayListGetMock.get(2));
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -60,6 +62,21 @@ public class ListMockTest {
 		ArrayList arrayListGetMock = mock(ArrayList.class);
 		when(arrayListGetMock.get(anyInt())).thenThrow(new RuntimeException("Somehing Wrong"));
 		arrayListGetMock.get(0);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Test
+	public void mockArrayListGetByUsingBDD() {
+		
+		//Given
+		ArrayList mockArrayList = mock(ArrayList.class);
+		given(mockArrayList.get(anyInt())).willReturn("in28Minutes");
+		
+		//When
+		Object element =  mockArrayList.get(0);
+		
+		//Then
+		assertThat(element.toString(),is("in28Minutes"));
 	}
 
 }
